@@ -51,8 +51,8 @@ for (const item of itemsToCollect){
 
 }
 
-let selectedItems = []
 const collectedItems = document.querySelector("input[name=items]")
+let selectedItems = []
 
 function handleSelectedItem(event){
 	const itemLi = event.target
@@ -64,7 +64,9 @@ function handleSelectedItem(event){
 	//verificar se existem itens selecionados, se sim
 	// pegar os itens selecionados
 
-	const alreadySelected = selectedItems.findIndex(item => item == itemId)
+	const alreadySelected = selectedItems.findIndex(item => {
+		const itemFound = item == itemId
+		return itemFound})
 
 	if(alreadySelected >= 0){
 		const filteredItems = selectedItems.filter(item =>{
