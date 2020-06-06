@@ -1,18 +1,19 @@
 const express= require("express")
 const server = express()
 
+const db = require("./database/db")
+
 //configurar pasta publica
 server.use(express.static("public"))
 
 // habilitar req.body
 server.use(express.urlencoded({extended: true}))
 
-const db = require("./database/db")
 //utilizando template engine
 
 const nunjucks = require("nunjucks")
 nunjucks.configure("src/views",{
-	express:server,
+	express: server,
 	noCache: true,
 })
 
@@ -52,12 +53,15 @@ server.post("/savepoint", (req,res) =>{
 	]
 	function afterInsertData(err){
 		if(err){
-			return console.log(err)
+			console.log(err)
+			return res.send("Erro no cadastro!")
 		}
 		console.log("Cadastrado com sucesso")
 		console.log(this)	
+
 		return res.render("create-point.html", {saved: true})
 	}
+
 	db.run(query, values,afterInsertData)
 
 })
@@ -75,7 +79,6 @@ server.get("/search", (req,res)=>{
     db.all(`SELECT * FROM places WHERE city LIKE '%${search}%'`, function(err, rows) {
 		if(err){
 			return console.log(err)
-			return res.sed("Erro no cadastro!")
 		}
 		
 		const total = rows.length
@@ -86,4 +89,4 @@ server.get("/search", (req,res)=>{
 
 
 //ligar o servidor
-server.listen(3000)
+server.listen(80)

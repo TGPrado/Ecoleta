@@ -27,6 +27,7 @@
 
 #page-home header a{
 	display: flex;
+
 	color: var(--title-color);
 	font-weight:700;	
 }
@@ -114,4 +115,3 @@
 
 	text-align: center;
 }
-
